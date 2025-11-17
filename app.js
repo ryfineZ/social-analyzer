@@ -79,6 +79,9 @@ if (semver.satisfies(process.version, '>13 || <13')) {
 
 import express from 'express'
 import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import slash from 'slash'
 import tokenizer from 'wink-tokenizer'
 import generatorics from 'generatorics'
 import HttpsProxyAgent from 'https-proxy-agent'
@@ -205,6 +208,42 @@ app.post('/save_settings', async function (req, res, next) {
   }
 
   res.json('Done')
+})
+
+app.get('/get_language', async function (req, res, next) {
+  try {
+    const current_lang = helper.get_current_language()
+    const available_langs = ['en', 'zh']
+
+    // 直接读取当前语言的翻译文件
+    const __dirname = path.dirname(fileURLToPath(import.meta.url))
+    const lang_path = slash(path.join(__dirname, 'lang', `${current_lang}.json`))
+    let translations = {}
+    if (fs.existsSync(lang_path)) {
+      translations = JSON.parse(fs.readFileSync(lang_path, 'utf8'))
+    }
+
+    res.json({
+      current: current_lang,
+      available: available_langs,
+      translations: translations
+    })
+  } catch (err) {
+    res.json({ error: err.message })
+  }
+})
+
+app.post('/set_language', async function (req, res, next) {
+  try {
+    if (req.body.lang && ['en', 'zh'].includes(req.body.lang)) {
+      const result = await helper.load_language(req.body.lang)
+      res.json(result)
+    } else {
+      res.json({ success: false, error: 'Invalid language code' })
+    }
+  } catch (err) {
+    res.json({ success: false, error: err.message })
+  }
 })
 
 app.get('/generate', async function (req, res, next) {
@@ -822,6 +861,10 @@ if (argv.grid !== '') {
 if (argv.docker) {
   server_host = '0.0.0.0'
 }
+
+// 初始化默认语言
+await helper.load_language('en')
+
 if (argv.gui) {
   app.listen(server_port, server_host, function () {
     // helper.setup_tecert()

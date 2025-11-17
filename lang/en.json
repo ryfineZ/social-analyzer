@@ -1,0 +1,170 @@
+{
+  "app_name": "Social Analyzer",
+  "app_title": "QeeqBox - Social Analyzer",
+  
+  "nav": {
+    "settings": "Settings",
+    "download": "Download",
+    "watch": "Watch"
+  },
+  
+  "sections": {
+    "enter_profile_name": "Enter Profile Name",
+    "string_lookups": "String LookUps",
+    "most_common_words": "Most common words by languages",
+    "extracted_names": "Extracted names with origins",
+    "extracted_combinations": "Extracted combinations",
+    "extracted_age": "Extracted Profile\\Person age (Maybe)",
+    "extracted_words_info": "Extracted words information",
+    "custom_search": "Custom Search",
+    "save_file": "Save File",
+    "metadata": "Metadata",
+    "statistics": "Statistics",
+    "visualization": "Visualization"
+  },
+  
+  "options": {
+    "name_analysis": "Name Analysis",
+    "find_profiles": "Find Profiles",
+    "show_profiles": "Show Profiles",
+    "extract_information": "Extract Information",
+    "visualize_information": "Visualize Information",
+    "stats": "Stats",
+    
+    "wordinfo": "Get names or words information",
+    "mostcommon": "Find common names or words by language",
+    "findorigins": "Find origins of names or words",
+    "lookups": "Perform normal search queries",
+    "customsearch": "Perform custom search queries",
+    "findfast": "Find profiles in fast mode (Recommended)",
+    "findslow": "Find profiles in slow mode",
+    "findspecial": "Find profiles in slow mode using customized actions",
+    "showslow": "Show screenshots of profiles in slow mode",
+    "extractmetadata": "Extract metadata of profiles",
+    "extractpatterns": "Extract defined patterns",
+    "networkgraph": "Show a visualized map based on the extracted metadata",
+    "statsanalysis": "Show statistics"
+  },
+  
+  "settings": {
+    "user_agent": "User-Agent (Optional)",
+    "proxy": "HTTP\\HTTPS Proxy (Optional)",
+    "google_api": "Google API (Optional)",
+    "google_api_key": "Google API Key",
+    "google_api_cs": "Google API CS",
+    "detection_options": "Detection Options",
+    "select_all": "Select All",
+    "deselect_all": "De-Select All",
+    "top_10": "Top 10",
+    "top_50": "Top 50",
+    "top_100": "Top 100",
+    "save": "Save",
+    "dismiss": "Dismiss",
+    "choose_options": "Choose some options"
+  },
+  
+  "buttons": {
+    "fast_options": "Fast Options",
+    "analyze": "Analyze",
+    "clear": "Clear",
+    "reset": "Reset",
+    "save_text": "Save as (Text)",
+    "save_json": "Save as (JSON)",
+    "save_xml": "Save as (XML)",
+    "download_json": "JSON",
+    "select_all": "Select All",
+    "deselect_all": "De-Select All",
+    "top_10": "Top 10",
+    "top_50": "Top 50",
+    "top_100": "Top 100"
+  },
+  
+  "placeholders": {
+    "username": "Enter username to search...",
+    "user_agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0",
+    "proxy": "http://host:port",
+    "google_api_key": "Google API Key",
+    "google_api_cs": "Google API CS",
+    "choose_options": "Choose some options..."
+  },
+  
+  "status": {
+    "checking": "Checking",
+    "waiting_retry": "Waiting to retry",
+    "canceling": "Canceling task",
+    "detected": "Detected",
+    "not_detected": "Not detected",
+    "filtered": "Filtered",
+    "retrieving_logs": "Retrieving logs",
+    "cancel_task": "Cancel task?"
+  },
+  
+  "messages": {
+    "init_log": "[Setting] Log file name",
+    "init_detections": "[init] Detections are updated very often, make sure to get the most up-to-date ones",
+    "nodejs_check": "[init] NodeJS Version Check",
+    "selected_websites": "[init] Selected websites",
+    "task_cancelled": "Task Cancelled",
+    "done": "Done",
+    "error": "Error",
+    "logs_not_found": "Logs not found"
+  },
+  
+  "table_headers": {
+    "link": "Link",
+    "rate": "Rate",
+    "status": "Status",
+    "title": "Title",
+    "language": "Language",
+    "country": "Country",
+    "rank": "Rank",
+    "type": "Type",
+    "metadata": "Metadata",
+    "extracted": "Extracted",
+    "text": "Text",
+    "word": "Word",
+    "languages": "Languages",
+    "definition": "Definition",
+    "category": "Category",
+    "country_stats": "Country",
+    "count": "Count",
+    "origin": "Origin",
+    "name": "Name",
+    "matched": "Matched",
+    "similar": "Similar",
+    "gender": "Gender",
+    "site": "Site",
+    "snippet": "Snippet"
+  },
+  
+  "profile_fields": {
+    "description": "Description",
+    "unknown": "Unknown",
+    "unavailable": "unavailable",
+    "filtered": "filtered",
+    "true": "true",
+    "false": "false",
+    "link": "Link",
+    "username": "Username",
+    "rate": "Rate",
+    "status": "Status",
+    "title": "Title",
+    "language": "Language",
+    "country": "Country",
+    "rank": "Rank",
+    "text": "Text",
+    "metadata": "Metadata",
+    "extracted": "Extracted",
+    "type": "Type",
+    "found": "Found",
+    "method": "Method",
+    "country_code": "Country Code",
+    "category": "Category"
+  },
+  
+  "languages": {
+    "en": "English",
+    "zh": "中文",
+    "auto": "Auto"
+  }
+}

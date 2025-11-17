@@ -58,6 +58,9 @@ const header_options = {
   }
 }
 
+let current_language = 'en'
+let translations = {}
+
 
 import https from 'follow-redirects'
 import fs from 'fs'
@@ -332,6 +335,44 @@ async function setup_tecert () {
   }
 }
 
+async function load_language (lang_code) {
+  try {
+    const lang_path = slash(path.join(__dirname, '..', 'lang', `${lang_code}.json`))
+    if (fs.existsSync(lang_path)) {
+      translations = JSON.parse(fs.readFileSync(lang_path, 'utf8'))
+      current_language = lang_code
+      return { success: true, language: lang_code }
+    } else {
+      return { success: false, error: `Language file not found: ${lang_code}` }
+    }
+  } catch (err) {
+    verbose && console.log(`Error loading language ${lang_code}:`, err)
+    return { success: false, error: err.message }
+  }
+}
+
+function get_text (key, default_val = '') {
+  if (!key) return default_val
+  const keys = key.split('.')
+  let value = translations
+  for (const k of keys) {
+    if (value && typeof value === 'object' && k in value) {
+      value = value[k]
+    } else {
+      return default_val
+    }
+  }
+  return value || default_val
+}
+
+function get_current_language () {
+  return current_language
+}
+
+function set_language (lang_code) {
+  current_language = lang_code
+}
+
 export default {
   strings_pages,
   strings_titles,
@@ -360,5 +401,11 @@ export default {
   get_site_from_url,
   log_to_file_queue,
   get_url_wrapper_text,
-  get_url_wrapper_json
+  get_url_wrapper_json,
+  load_language,
+  get_text,
+  get_current_language,
+  set_language,
+  current_language,
+  translations
 }
