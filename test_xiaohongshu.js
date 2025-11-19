@@ -146,41 +146,42 @@ async function testRequest() {
 
 // 步骤7: 测试昵称搜索功能
 async function testNicknameSearch() {
-  console.log('\n步骤7: 测试昵称搜索功能（可选）...')
+  try {
+    console.log('\n步骤7: 测试昵称搜索功能（可选）...')
 
-  // 如果输入的是昵称（而非user_id），测试搜索功能
-  const testNickname = 'yangmimi' // 示例昵称，可以修改
+    // 如果输入的是昵称（而非user_id），测试搜索功能
+    const testNickname = 'yangmimi' // 示例昵称，可以修改
 
-  // 判断是否是user_id
-  const is_user_id = /^[0-9a-f]{16,24}$/.test(TEST_USER_ID)
+    // 判断是否是user_id
+    const is_user_id = /^[0-9a-f]{16,24}$/.test(TEST_USER_ID)
 
-  if (!is_user_id) {
-    console.log('  输入看起来是昵称，测试搜索功能...')
-    console.log('  搜索昵称:', testNickname)
+    if (!is_user_id) {
+      console.log('  输入看起来是昵称，测试搜索功能...')
+      console.log('  搜索昵称:', testNickname)
 
-    try {
-      // 调用special检测函数
-      const [search_ret] = await engine.special_xiaohongshu_search('fast', 'test-uuid-2', testNickname, [], xhsSite, '', '', '')
+      try {
+        // 调用special检测函数
+        const [search_ret] = await engine.special_xiaohongshu_search('fast', 'test-uuid-2', testNickname, [], xhsSite, '', '', '')
 
-      if (search_ret.special_search_result) {
-        console.log('  ✓ 找到用户ID:', search_ret.special_search_result.found_user_id)
-        console.log('  ✓ 验证状态:', search_ret.special_search_result.verified ? '成功' : '失败')
-      } else if (search_ret.found > 0) {
-        console.log('  ✓ 搜索完成')
-      } else {
-        console.log('  ⚡ 没有搜索到结果（这是正常的，取决于Cookie和网络）')
+        if (search_ret.special_search_result) {
+          console.log('  ✓ 找到用户ID:', search_ret.special_search_result.found_user_id)
+          console.log('  ✓ 验证状态:', search_ret.special_search_result.verified ? '成功' : '失败')
+        } else if (search_ret.found > 0) {
+          console.log('  ✓ 搜索完成')
+        } else {
+          console.log('  ⚡ 没有搜索到结果（这是正常的，取决于Cookie和网络）')
+        }
+      } catch (err) {
+        console.log('  ⚡ 搜索功能可能存在限制:', err.message.substring(0, 50))
+        console.log('  提示: 小红书搜索功能依赖于有效的Cookie和网络环境')
       }
-    } catch (err) {
-      console.log('  ⚡ 搜索功能可能存在限制:', err.message.substring(0, 50))
-      console.log('  提示: 小红书搜索功能依赖于有效的Cookie和网络环境')
+    } else {
+      console.log('  输入是user_id，跳过昵称搜索测试')
     }
-  } else {
-    console.log('  输入是user_id，跳过昵称搜索测试')
-  }
 
-  console.log('\n=====================================')
-  console.log('  所有测试完成！')
-  console.log('=====================================\n')
+    console.log('\n=====================================')
+    console.log('  所有测试完成！')
+    console.log('=====================================\n')
 
   } catch (err) {
     console.log('\n❌ 错误:', err.message)
