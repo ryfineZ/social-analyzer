@@ -2,15 +2,16 @@
 
 /**
  * 小红书功能测试脚本
- * Usage: node test_xiaohongshu.js [user_id]
+ * Usage: node test_xiaohongshu.js [user_id_or_nickname]
+ * 支持两种输入：用户ID（16-24位字符）或昵称（任意文本）
  */
 
 import helper from './modules/helper.js'
 import engine from './modules/engine.js'
 import * as cheerio from 'cheerio'
 
-// 测试用户ID（可以自己替换）
-const TEST_USER_ID = process.argv[2] || '5c309c6e000000001102f2f5' // 示例用户
+// 测试用户ID或昵称（从命令行参数获取）
+const TEST_INPUT = process.argv[2] || '5c309c6e000000001102f2f5' // 默认使用示例用户ID
 
 console.log('\n=====================================')
 console.log('  小红书功能测试')
@@ -60,8 +61,8 @@ console.log('✓ Cookie获取成功\n')
 // 步骤4: 测试请求
 async function testRequest() {
   console.log('步骤4: 测试请求小红书用户主页...')
-  console.log('  用户ID:', TEST_USER_ID)
-  console.log('  请求URL:', xhsSite.url.replace('{username}', TEST_USER_ID))
+  console.log('  用户ID:', TEST_INPUT)
+  console.log('  请求URL:', xhsSite.url.replace('{username}', TEST_INPUT))
   console.log('  请稍候...\n')
 
   try {
@@ -73,7 +74,7 @@ async function testRequest() {
       }
     }
 
-    const url = xhsSite.url.replace('{username}', TEST_USER_ID)
+    const url = xhsSite.url.replace('{username}', TEST_INPUT)
     const [ret_code, source] = await helper.get_url_wrapper_text_with_options(url, 5, request_options)
 
     console.log('  返回状态码:', ret_code)
@@ -150,10 +151,10 @@ async function testNicknameSearch() {
     console.log('\n步骤7: 测试昵称搜索功能（可选）...')
 
     // 如果输入的是昵称（而非user_id），测试搜索功能
-    const testNickname = 'yangmimi' // 示例昵称，可以修改
+    const testNickname = TEST_INPUT // 使用传入的参数
 
     // 判断是否是user_id
-    const is_user_id = /^[0-9a-f]{16,24}$/.test(TEST_USER_ID)
+    const is_user_id = /^[0-9a-f]{16,24}$/.test(TEST_INPUT)
 
     if (!is_user_id) {
       console.log('  输入看起来是昵称，测试搜索功能...')
