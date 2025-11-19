@@ -166,5 +166,16 @@
     "en": "English",
     "zh": "中文",
     "auto": "自动"
+  },
+
+  "xiaohongshu": {
+    "searching_nickname": "正在搜索小红书用户昵称...",
+    "found_user_id": "找到用户ID: {user_id}",
+    "verifying_user": "正在验证用户...",
+    "verified_success": "用户验证成功",
+    "verification_failed": "验证失败",
+    "no_search_results": "未找到搜索结果",
+    "input_is_user_id": "输入已识别为用户ID",
+    "search_blocked": "搜索被阻止或失败"
   }
 }

@@ -86,7 +86,58 @@ async function extract_patterns (site, source) {
   }
 }
 
+async function extract_xiaohongshu_profile (site, source) {
+  try {
+    const $ = cheerio.load(source)
+    const extracted_data = {
+      nickname: '',
+      bio: '',
+      avatar: '',
+      stats: {}
+    }
+
+    // 提取昵称
+    const nickname_match = source.match(/\"nickname\":\"([^"]+)\"/)
+    if (nickname_match && nickname_match[1]) {
+      extracted_data.nickname = decodeURIComponent(nickname_match[1])
+    }
+
+    // 提取简介
+    const bio_match = source.match(/\"desc\":\"([^"]+)\"/)
+    if (bio_match && bio_match[1]) {
+      extracted_data.bio = decodeURIComponent(bio_match[1])
+    }
+
+    // 提取头像
+    const avatar_match = source.match(/\"avatar\":\"([^"]+)\"/)
+    if (avatar_match && avatar_match[1]) {
+      extracted_data.avatar = avatar_match[1].replace(/\\\//g, '/')
+    }
+
+    // 提取统计数据：获赞与收藏、粉丝、关注
+    const like_pattern = /获赞与收藏\s*\n?\s* (\d+)/
+    const fans_pattern = /粉丝\s*\n?\s* (\d+[\w.]*)\n?\s*获赞与收藏/
+    const following_pattern = /关注\s*\n?\s* (\d+[\w.]*)/
+
+    const like_match = source.match(like_pattern)
+    const fans_match = source.match(fans_pattern)
+    const following_match = source.match(following_pattern)
+
+    extracted_data.stats = {
+      likes: like_match && like_match[1] ? like_match[1] : '0',
+      fans: fans_match && fans_match[1] ? fans_match[1] : '0',
+      following: following_match && following_match[1] ? following_match[1] : '0'
+    }
+
+    return extracted_data
+  } catch (err) {
+    helper.verbose && console.log('[Xiaohongshu Extraction Error]', err)
+    return null
+  }
+}
+
 export default{
   extract_patterns,
-  extract_metadata
+  extract_metadata,
+  extract_xiaohongshu_profile
 }

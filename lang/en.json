@@ -162,6 +162,17 @@
     "category": "Category"
   },
   
+  "xiaohongshu": {
+    "searching_nickname": "Searching Xiaohongshu nickname...",
+    "found_user_id": "Found user ID: {user_id}",
+    "verifying_user": "Verifying user...",
+    "verified_success": "User verified successfully",
+    "verification_failed": "Verification failed",
+    "no_search_results": "No search results found",
+    "input_is_user_id": "Input detected as user ID",
+    "search_blocked": "Search blocked or failed"
+  },
+
   "languages": {
     "en": "English",
     "zh": "中文",
