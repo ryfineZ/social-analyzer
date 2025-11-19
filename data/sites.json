@@ -22660,6 +22660,47 @@
       "nsfw": "false"
     },
     {
+      "url": "https://www.xiaohongshu.com/user/profile/{username}",
+      "detections": [
+        {
+          "return": "false",
+          "string": "用户不存在",
+          "type": "advanced"
+        },
+        {
+          "return": "false",
+          "string": "用户不存在",
+          "type": "normal"
+        },
+        {
+          "return": "true",
+          "string": "获赞与收藏",
+          "type": "normal"
+        },
+        {
+          "return": "true",
+          "string": "粉丝",
+          "type": "normal"
+        },
+        {
+          "type": "special",
+          "function": "special_xiaohongshu_search"
+        }
+      ],
+      "type": "xiaohongshu",
+      "selected": "true",
+      "timeout": 0,
+      "implicit": 0,
+      "extract": [],
+      "category": "Arts and Entertainment > Social Media",
+      "global_rank": 50,
+      "country": "China",
+      "country_code": 0,
+      "nsfw": "false",
+      "requires_cookie": true,
+      "cookie_env": "XIAOHONGSHU_COOKIE"
+    },
+    {
       "url": "https://{username}.www.nn.ru",
       "detections": [
         {

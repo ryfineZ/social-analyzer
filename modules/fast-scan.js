@@ -85,7 +85,18 @@ async function find_username_site (uuid, username, options, site) {
         if (!options.includes('json')) {
           helper.log_to_file_queue(uuid, '[Checking] ' + helper.get_site_from_url(site.url))
         }
-        const [ret, source]  = await helper.get_url_wrapper_text(site.url.replace('{username}', username))
+        // 检查是否需要Cookie
+        let request_options = null
+        const cookie = helper.get_site_cookie(site)
+        if (cookie) {
+          request_options = {
+            headers: {
+              ...helper.header_options.headers,
+              'Cookie': cookie
+            }
+          }
+        }
+        const [ret, source]  = await helper.get_url_wrapper_text_with_options(site.url.replace('{username}', username), 2, request_options)
         if (source !== 'error-get-url') {
           let title = 'unavailable'
           let language = 'unavailable'

@@ -232,11 +232,17 @@ async function get_url_wrapper_json (url, time = 2) {
 }
 
 async function get_url_wrapper_text (url, time = 2) {
+  return get_url_wrapper_text_with_options(url, time, null)
+}
+
+async function get_url_wrapper_text_with_options (url, time = 2, options = null) {
   const response_body = 'error-get-url'
   const ret = 500
+  // 合并自定义选项与默认header_options
+  const request_options = options || header_options
   try {
     const http_promise = new Promise((resolve, reject) => {
-      const request = https.https.get(url, header_options, function (res) {
+      const request = https.https.get(url, request_options, function (res) {
         let body = ''
         res.on('data', function (chunk) {
           body += chunk
@@ -373,6 +379,23 @@ function set_language (lang_code) {
   current_language = lang_code
 }
 
+function get_site_cookie (site) {
+  try {
+    if (site.requires_cookie && site.cookie_env) {
+      const cookie = process.env[site.cookie_env]
+      if (cookie && cookie.includes('a1=')) {
+        return cookie
+      } else if (cookie) {
+        console.log(`[Warning] Cookie for ${site.type} does not contain required 'a1=' field`)
+        return null
+      }
+    }
+  } catch (err) {
+    verbose && console.log(`[Error] Failed to get cookie for ${site.type}:`, err.message)
+  }
+  return null
+}
+
 export default {
   strings_pages,
   strings_titles,
@@ -401,11 +424,13 @@ export default {
   get_site_from_url,
   log_to_file_queue,
   get_url_wrapper_text,
+  get_url_wrapper_text_with_options,
   get_url_wrapper_json,
   load_language,
   get_text,
   get_current_language,
   set_language,
+  get_site_cookie,
   current_language,
   translations
 }
